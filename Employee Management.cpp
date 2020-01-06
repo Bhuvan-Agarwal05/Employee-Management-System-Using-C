@@ -98,6 +98,12 @@ node *create(node *head)
 			gets(new_node->employee.name);
 			printf("\nEnter Employee Age:- ");
 			scanf("%d",&new_node->employee.age);
+			
+			if(new_node->employee.age<=18 || new_node->employee.age>60)
+			{
+				printf("\n***** Invalid Employee Age... Employee Age For Job Eligibility is 18<= AGE < 60 *****");
+				continue;
+			}
 			gets(fake_str); // Buffer Flusher to get String Input After Taking an Integer Input
 			printf("\nEnter The Name of the City where Employee lives:- ");
 			gets(new_node->employee.address.city);
@@ -168,6 +174,11 @@ node *insertEmployee(node *head)
 	gets(new_node->employee.name);
 	printf("\nEnter Employee Age:- ");
 	scanf("%d",&new_node->employee.age);
+	if(new_node->employee.age<=18 || new_node->employee.age>60)
+			{
+				printf("\n***** Invalid Employee Age... Employee Age For Job Eligibility is 18<= AGE < 60 *****");
+				return head;
+			}
 	gets(fake_str); // Buffer Flusher to get String Input After Taking an Integer Input
 	printf("\nEnter The Name of the City where Employee lives:- ");
 	gets(new_node->employee.address.city);
