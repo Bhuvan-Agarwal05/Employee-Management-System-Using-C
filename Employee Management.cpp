@@ -23,17 +23,19 @@ node *insertEmployee(node *);  // For Inserting Details Of A New Employee
 node *searchAndDeleteEmployee(node *,int); // For Deleting or, Removing an Employee From The Organization
 void displayDetails(node *);  // For Displaying The Details Of All The Employee
 void updateDetails(node *,int);  // For Updating Details Of a Particular Employee At a Time
-int searchID(node *,int);
+int searchID(node *,int);  // For Verification of Duplication of Employee ID's before Inserting
+int number_of_employee(node *);  // To Count The Number Of Employees At Present In The Organization
+
 char fake_str[1];
 
 int main()
 {
-	int ch,id_to_delete,id_to_update;
+	int ch,id_to_delete,id_to_update,num_of_emp;
 	node *head;
 	head=NULL;
 	while(1)
 	{
-		printf("\n1) Register All Employees.\n2) Insert New Employee.\n3) Delete An Employee.\n4) Display The Details Of An Employee.\n5) Update Details Of An Employee.\n6) EXIT.\n");
+		printf("\n1) Register All Employees.\n2) Insert New Employee.\n3) Delete An Employee.\n4) Display The Details Of An Employee.\n5) Update Details Of An Employee.\n6) Total No. Of Employees.\n7) EXIT.\n");
 		scanf("%d",&ch);
 		switch(ch)
 		{
@@ -66,7 +68,10 @@ int main()
 					scanf("%d",&id_to_update);
 					updateDetails(head,id_to_update);
 			        break;
-			case 6: exit(0);
+			case 6: num_of_emp=number_of_employee(head);
+					printf("\nThe Total Number Of Employees At Present In The Organization : %d",num_of_emp);
+					break;
+			case 7: exit(0);
 			    default:
 			    	printf("INVALID CHOICE");
 		}
@@ -290,8 +295,19 @@ void updateDetails(node *head,int id_to_update)
 	}
 }
 
-
-
+// Function To Find The Total Number Of Employee In The Organization At Present
+int number_of_employee(node *head)
+{
+	int count=0;
+	node *temp;
+	temp=head;
+	while(temp!=NULL)
+	{
+		temp=temp->next;
+		count++;
+	}
+	return count;
+}
 
 
 
