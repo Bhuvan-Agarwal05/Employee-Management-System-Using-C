@@ -41,13 +41,28 @@ int main()
 			        break;
 			case 2: head=insertEmployee(head);
 			        break;
-			case 3: printf("\nEnter The Employee ID To Delete:- ");
+			case 3: if(head==NULL)
+	                     {
+							printf("\n***** No Employee Records Found *****\n");
+							break;
+						}
+					printf("\nEnter The Employee ID To Delete:- ");
 					scanf("%d",&id_to_delete);
 					head=searchAndDeleteEmployee(head,id_to_delete);
 			        break;
-			case 4: displayDetails(head);
+			case 4: if(head==NULL)
+	                     {
+							printf("\n***** No Employee Records Found *****\n");
+							break;
+						}
+					displayDetails(head);
 			        break;
-			case 5: printf("\nEnter The Employee ID To Update Details:- ");
+			case 5: if(head==NULL)
+	                     {
+							printf("\n***** No Employee Records Found *****\n");
+							break;
+						}
+					printf("\nEnter The Employee ID To Update Details:- ");
 					scanf("%d",&id_to_update);
 					updateDetails(head,id_to_update);
 			        break;
@@ -58,7 +73,7 @@ int main()
 	}
 }
 
-
+// Function To Register or, Add Details Of All Employee's Initially
 node *create(node *head)
 {
 	int choice=1;
@@ -94,7 +109,7 @@ node *create(node *head)
 	return head;
 }
 
-
+// Function To Insert or, Add Details Of A New Employee
 node *insertEmployee(node *head)
 {
 	node *new_node;
@@ -125,11 +140,23 @@ node *insertEmployee(node *head)
 	return head;
 }
 
-
+// Function To Search & Delete Details Of Any Particular Employee ( Search Using Employee ID because it is Unique )
 node *searchAndDeleteEmployee(node *head,int id_to_delete)
 {
 	node *temp,*prev_node;
 	temp=prev_node=head;
+	
+	// If Their is Only One Node then we need to perform these steps
+	
+	if(head->next==NULL)
+	{
+		head=NULL;
+		free(temp);
+		return head;
+	}
+	
+	// If Number Of Nodes or, Employee's Data is for more than 1 Employee then, we need to perform these steps
+	
 	while(temp!=NULL && temp->employee.emp_id!=id_to_delete)
 	{
 		prev_node=temp;
@@ -140,38 +167,40 @@ node *searchAndDeleteEmployee(node *head,int id_to_delete)
 	return head;
 }
 
-
+// Function To Display The Details Of All The Employees
 void displayDetails(node *head)
 {
 	node *temp;
 	temp=head;
+	printf("\n----------------------------------------------");
 	while(temp!=NULL)
 	{
-		printf("\nEmployee ID is %d.",temp->employee.emp_id);
-		printf("\nEmployee Name is %s.",temp->employee.name);
-		printf("\nEmployee Age is %d.",temp->employee.age);
-		printf("\nAddress Of The Employee:\nCity : %s\nStreet : %s",temp->employee.address.city,temp->employee.address.street);
+		printf("\n\tEmployee ID : %d",temp->employee.emp_id);
+		printf("\n\tEmployee Name : %s",temp->employee.name);
+		printf("\n\tEmployee Age : %d",temp->employee.age);
+		printf("\n\tAddress Of The Employee:\n\t\tCity : %s\n\t\tStreet : %s\n",temp->employee.address.city,temp->employee.address.street);
 		
 		temp=temp->next;
 		printf("\n----------------------------------------------");
 	}
 }
 
-
+// Function To Update Details Of Any Particular Employee ( Employee ID is unique )
 void updateDetails(node *head,int id_to_update)
 {
 	int choice;
 	node *temp;
 	temp=head;
+	
 	while(temp->employee.emp_id!=id_to_update)
 	{
 		temp=temp->next;
 	}
-	printf("\n\t\tYour Existing Details Are:- ");
-	printf("\n\tEmployee ID is %d.",temp->employee.emp_id);
-	printf("\n\tEmployee Name is %s.",temp->employee.name);
-	printf("\n\tEmployee Age is %d.",temp->employee.age);
-	printf("\n\tAddress Of The Employee:\nCity : %s\nStreet : %s\n",temp->employee.address.city,temp->employee.address.street);
+	printf("\n***** Your Existing Details Are *****");
+	printf("\n\tEmployee ID : %d",temp->employee.emp_id);
+	printf("\n\tEmployee Name : %s",temp->employee.name);
+	printf("\n\tEmployee Age : %d",temp->employee.age);
+	printf("\n\tAddress Of The Employee:\n\t\tCity : %s\n\t\tStreet : %s\n",temp->employee.address.city,temp->employee.address.street);
 	
 	printf("\n1) To Update Name.\n2) To Update Age.\n3) To Update City Name.\n4) To Update Street Name.\n5) Your Data Is Up-to Date.\n");
 	scanf("%d",&choice);
@@ -194,6 +223,9 @@ void updateDetails(node *head,int id_to_update)
 		   	printf("INVALID CHOICE");
 	}
 }
+
+
+
 
 
 
