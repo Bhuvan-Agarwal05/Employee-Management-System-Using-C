@@ -251,9 +251,13 @@ void displayDetails(node *head)
 // Function To Update Details Of Any Particular Employee ( Employee ID is unique )
 void updateDetails(node *head,int id_to_update)
 {
-	int choice;
+	int choice,flag=0;
 	node *temp;
 	temp=head;
+	
+	flag=searchID(head,id_to_update);  // If No Such Employee ID Exists , then it will help us throw us a INVALID Message...
+	if(flag==1)
+	{
 	if(head->next==NULL)
 		temp=head;
 	else
@@ -264,34 +268,40 @@ void updateDetails(node *head,int id_to_update)
 			}
 	}
 	
-	printf("\n***** Your Existing Details Are *****");
-	printf("\n\tEmployee ID : %d",temp->employee.emp_id);
-	printf("\n\tEmployee Name : %s",temp->employee.name);
-	printf("\n\tEmployee Age : %d",temp->employee.age);
-	printf("\n\tAddress Of The Employee:\n\t\tCity : %s\n\t\tStreet : %s\n",temp->employee.address.city,temp->employee.address.street);
-	
-	printf("\n1) To Update Name.\n2) To Update Age.\n3) To Update City Name.\n4) To Update Street Name.\n5) Your Data Is Up-to Date.\n");
-	scanf("%d",&choice);
-	switch(choice)
+		printf("\n***** Your Existing Details Are *****");
+		printf("\n\tEmployee ID : %d",temp->employee.emp_id);
+		printf("\n\tEmployee Name : %s",temp->employee.name);
+		printf("\n\tEmployee Age : %d",temp->employee.age);
+		printf("\n\tAddress Of The Employee:\n\t\tCity : %s\n\t\tStreet : %s\n",temp->employee.address.city,temp->employee.address.street);
+		
+		printf("\n1) To Update Name.\n2) To Update Age.\n3) To Update City Name.\n4) To Update Street Name.\n5) Your Data Is Up-to Date.\n");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1: printf("\nEnter New Name:- ");
+					gets(fake_str);
+			        gets(temp->employee.name);
+			        break;
+		    case 2: printf("\nEnter New Age:- ");
+		            scanf("%d",&temp->employee.age);
+		            break;
+			case 3: printf("\nEnter City Name:- ");
+					gets(fake_str);
+					gets(temp->employee.address.city);
+					break;
+			case 4: printf("\nEnter Street Name:- ");
+					gets(fake_str);
+					gets(temp->employee.address.street);
+					break;
+			case 5: break;
+			   default:
+			   	printf("INVALID CHOICE");
+		}
+	}
+	else
 	{
-		case 1: printf("\nEnter New Name:- ");
-				gets(fake_str);
-		        gets(temp->employee.name);
-		        break;
-	    case 2: printf("\nEnter New Age:- ");
-	            scanf("%d",&temp->employee.age);
-	            break;
-		case 3: printf("\nEnter City Name:- ");
-				gets(fake_str);
-				gets(temp->employee.address.city);
-				break;
-		case 4: printf("\nEnter Street Name:- ");
-				gets(fake_str);
-				gets(temp->employee.address.street);
-				break;
-		case 5: break;
-		   default:
-		   	printf("INVALID CHOICE");
+		printf("\n     No Such Employee ID Exists In Our Database");
+		printf("\n***** PLEASE TRY AGAIN FOR A DIFFERENT EMPLOYEE ID *****");
 	}
 }
 
