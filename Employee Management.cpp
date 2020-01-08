@@ -209,25 +209,33 @@ node *searchAndDeleteEmployee(node *head,int id_to_delete)
 	node *temp,*prev_node;
 	temp=prev_node=head;
 	
-	// If Their is Only One Node then we need to perform these steps
-	
-	if(head->next==NULL)
+	int flag=searchID(head,id_to_delete);  // If No Such Employee ID exists , then we throw a invalid message
+	if(flag==1)
 	{
-		head=NULL;
+	
+		// If Their is Only One Node then we need to perform these steps
+		if(head->next==NULL)
+		{
+			head=NULL;
+			free(temp);
+			return head;
+		}
+		
+		// If Number Of Nodes or, Employee's Data is for more than 1 Employee then, we need to perform these steps
+		while(temp!=NULL && temp->employee.emp_id!=id_to_delete)
+		{
+			prev_node=temp;
+			temp=temp->next;
+		}
+		prev_node->next=temp->next;
 		free(temp);
 		return head;
 	}
-	
-	// If Number Of Nodes or, Employee's Data is for more than 1 Employee then, we need to perform these steps
-	
-	while(temp!=NULL && temp->employee.emp_id!=id_to_delete)
+	else
 	{
-		prev_node=temp;
-		temp=temp->next;
+		printf("\n     No Such Employee ID Exists In Our Database");
+		printf("\n***** PLEASE TRY AGAIN FOR A DIFFERENT EMPLOYEE ID *****");
 	}
-	prev_node->next=temp->next;
-	free(temp);
-	return head;
 }
 
 // Function To Display The Details Of All The Employees
