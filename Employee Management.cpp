@@ -181,7 +181,7 @@ node *insertEmployee(node *head)
 	scanf("%d",&new_node->employee.age);
 	if(new_node->employee.age<=18 || new_node->employee.age>60)
 			{
-				printf("\n***** Invalid Employee Age... Employee Age For Job Eligibility is 18<= AGE < 60 *****");
+				printf("\n***** Invalid Employee Age... Employee Age For Job Eligibility is 18 <= AGE <= 60 *****");
 				return head;
 			}
 	gets(fake_str); // Buffer Flusher to get String Input After Taking an Integer Input
@@ -234,7 +234,8 @@ node *searchAndDeleteEmployee(node *head,int id_to_delete)
 	else
 	{
 		printf("\n     No Such Employee ID Exists In Our Database");
-		printf("\n***** PLEASE TRY AGAIN FOR A DIFFERENT EMPLOYEE ID *****");
+		printf("\n***** PLEASE TRY AGAIN FOR A DIFFERENT EMPLOYEE ID *****\n");
+		return head;
 	}
 }
 
@@ -282,7 +283,7 @@ void updateDetails(node *head,int id_to_update)
 		printf("\n\tEmployee Age : %d",temp->employee.age);
 		printf("\n\tAddress Of The Employee:\n\t\tCity : %s\n\t\tStreet : %s\n",temp->employee.address.city,temp->employee.address.street);
 		
-		printf("\n1) To Update Name.\n2) To Update Age.\n3) To Update City Name.\n4) To Update Street Name.\n5) Your Data Is Up-to Date.\n");
+		printf("\n1) To Update Name.\n2) To Update Age.\n3) To Update City Name.\n4) To Update Street Name.\n5) My Data Is Up-to Date.\n");
 		scanf("%d",&choice);
 		switch(choice)
 		{
@@ -309,7 +310,7 @@ void updateDetails(node *head,int id_to_update)
 	else
 	{
 		printf("\n     No Such Employee ID Exists In Our Database");
-		printf("\n***** PLEASE TRY AGAIN FOR A DIFFERENT EMPLOYEE ID *****");
+		printf("\n***** PLEASE TRY AGAIN FOR A DIFFERENT EMPLOYEE ID *****\n");
 	}
 }
 
