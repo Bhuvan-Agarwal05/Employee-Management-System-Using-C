@@ -18,24 +18,25 @@ typedef struct NODE{
 	struct NODE *next;
 }node;
 
-node *create(node *);  // For Registering All Employee's Initially
-node *insertEmployee(node *);  // For Inserting Details Of A New Employee
-node *searchAndDeleteEmployee(node *,int); // For Deleting or, Removing an Employee From The Organization
-void displayDetails(node *);  // For Displaying The Details Of All The Employee
-void updateDetails(node *,int);  // For Updating Details Of a Particular Employee At a Time
-int searchID(node *,int);  // For Verification of Duplication of Employee ID's before Inserting
-int number_of_employee(node *);  // To Count The Number Of Employees At Present In The Organization
+node *create(node *);  // For Registering All Employee's Initially ...
+node *insertEmployee(node *);  // For Inserting Details Of A New Employee ...
+node *searchAndDeleteEmployee(node *,int);  // For Deleting or, Removing an Employee From The Organization ..
+void displayDetails(node *);  // For Displaying The Details Of All The Employee ...
+void updateDetails(node *,int);  // For Updating Details Of a Particular Employee At a Time ...
+int searchID(node *,int);  // For Verification of Duplication of Employee ID's before Inserting ...
+int number_of_employee(node *);  // To Count The Number Of Employees At Present In The Organization ...
+void displayDetailsOfAParticularEmployee(node *,int);  // For Displaying Details Of A Particular Employee ...
 
 char fake_str[1];
 
 int main()
 {
-	int ch,id_to_delete,id_to_update,num_of_emp;
+	int ch,id_to_delete,id_to_update,num_of_emp,id_to_display;
 	node *head;
 	head=NULL;
 	while(1)
 	{
-		printf("\n1) Register All Employees.\n2) Insert New Employee.\n3) Delete An Employee.\n4) Display The Details Of An Employee.\n5) Update Details Of An Employee.\n6) Total No. Of Employees.\n7) EXIT.\n");
+		printf("\n1) Register All Employees.\n2) Insert New Employee.\n3) Delete An Employee.\n4) Display The Details Of All The Employee.\n5) Display Details Of A Particular Employee.\n6) Update Details Of An Employee.\n7) Total No. Of Employees.\n8) EXIT.\n");
 		scanf("%d",&ch);
 		switch(ch)
 		{
@@ -47,7 +48,7 @@ int main()
 	                     {
 							printf("\n***** No Employee Records Found *****\n");
 							break;
-						}
+						 }
 					printf("\nEnter The Employee ID To Delete:- ");
 					scanf("%d",&id_to_delete);
 					head=searchAndDeleteEmployee(head,id_to_delete);
@@ -56,22 +57,31 @@ int main()
 	                     {
 							printf("\n***** No Employee Records Found *****\n");
 							break;
-						}
+						 }
 					displayDetails(head);
 			        break;
 			case 5: if(head==NULL)
 	                     {
 							printf("\n***** No Employee Records Found *****\n");
 							break;
-						}
+						 }
+					printf("\nEnter The Employee ID To Display Details:- ");
+					scanf("%d",&id_to_display);
+					displayDetailsOfAParticularEmployee(head,id_to_display);
+					break;
+			case 6: if(head==NULL)
+	                     {
+							printf("\n***** No Employee Records Found *****\n");
+							break;
+						 }
 					printf("\nEnter The Employee ID To Update Details:- ");
 					scanf("%d",&id_to_update);
 					updateDetails(head,id_to_update);
 			        break;
-			case 6: num_of_emp=number_of_employee(head);
+			case 7: num_of_emp=number_of_employee(head);
 					printf("\nThe Total Number Of Employees At Present In The Organization : %d",num_of_emp);
 					break;
-			case 7: exit(0);
+			case 8: exit(0);
 			    default:
 			    	printf("INVALID CHOICE");
 		}
@@ -257,6 +267,38 @@ void displayDetails(node *head)
 	}
 }
 
+// Function To Display Details Of A Particular Employee ID
+void displayDetailsOfAParticularEmployee(node *head,int id_to_display)
+{
+	int flag=0;
+	node *temp;
+	temp=head;
+	flag=searchID(head,id_to_display);  // If No Such Employee ID Exists , then it will help us throw us a INVALID Message...
+	if(flag==1)
+	{
+		if(head->next==NULL)
+			temp=head;
+		else
+		{
+			while(temp!=NULL && temp->employee.emp_id!=id_to_display)
+				{
+					temp=temp->next;
+				}
+		}
+		printf("\n----------------------------------------------");
+		printf("\n\tEmployee ID : %d",temp->employee.emp_id);
+		printf("\n\tEmployee Name : %s",temp->employee.name);
+		printf("\n\tEmployee Age : %d",temp->employee.age);
+		printf("\n\tAddress Of The Employee:\n\t\tCity : %s\n\t\tStreet : %s\n",temp->employee.address.city,temp->employee.address.street);
+		printf("\n----------------------------------------------");
+	}
+	else
+	{
+		printf("\n     No Such Employee ID Exists In Our Database");
+		printf("\n***** PLEASE TRY AGAIN FOR A DIFFERENT EMPLOYEE ID *****\n");
+	}
+}
+
 // Function To Update Details Of Any Particular Employee ( Employee ID is unique )
 void updateDetails(node *head,int id_to_update)
 {
@@ -327,8 +369,6 @@ int number_of_employee(node *head)
 	}
 	return count;
 }
-
-
 
 
 
